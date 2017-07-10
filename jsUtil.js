@@ -166,7 +166,10 @@ var jsUtil = function() {
                 'top': 'calc(50% - 35px)',
                 'textAlign': 'center',
                 'padding': '20px',
-                'borderRadius': '3px'
+                'borderRadius': '3px',
+                'fontStyle': 'italic',
+                'fontSize': '13px',
+                'fontFamily': 'monospace'
             },
             'html': 'loading'
         });
