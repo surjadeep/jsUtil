@@ -1,7 +1,7 @@
 /**
  * @name: JS Utilities
  * @author: Surjadeep Banerjee (study.surja@gmail.com)
- * @last update: 10-July-17
+ * @update: 10-July-17
  */
 var jsUtil = {
     isEmail: function(t) {
@@ -101,5 +101,25 @@ var jsUtil = {
             function(t, r) {
                 return t = e(t), r = e(r), n * ((t > r) - (r > t))
             }
+    },
+    detectMyBrowser: function() {
+        var e, t, a, n = {},
+            i = (navigator.appVersion, navigator.userAgent),
+            r = navigator.appName,
+            o = "" + parseFloat(navigator.appVersion),
+            l = parseInt(navigator.appVersion, 10);
+        return -1 != (t = i.indexOf("OPR/")) ? (r = "Opera", o = i.substring(t + 4)) : -1 != (t = i.indexOf("Opera")) ? (r = "Opera", o = i.substring(t + 6), -1 != (t = i.indexOf("Version")) && (o = i.substring(t + 8))) : -1 != (t = i.indexOf("MSIE")) ? (r = "Microsoft Internet Explorer", o = i.substring(t + 5)) : -1 != (t = i.indexOf("Chrome")) ? (r = "Chrome", o = i.substring(t + 7)) : -1 != (t = i.indexOf("Safari")) ? (r = "Safari", o = i.substring(t + 7), -1 != (t = i.indexOf("Version")) && (o = i.substring(t + 8))) : -1 != (t = i.indexOf("Firefox")) ? (r = "Firefox", o = i.substring(t + 8)) : (e = i.lastIndexOf(" ") + 1) < (t = i.lastIndexOf("/")) && (r = i.substring(e, t), o = i.substring(t + 1), r.toLowerCase() == r.toUpperCase() && (r = navigator.appName)), -1 != (a = o.indexOf(";")) && (o = o.substring(0, a)), -1 != (a = o.indexOf(" ")) && (o = o.substring(0, a)), l = parseInt("" + o, 10), isNaN(l) && (o = "" + parseFloat(navigator.appVersion), l = parseInt(navigator.appVersion, 10)), n.name = r, n.fVersion = o, n.mVersion = l, n.navAppName = navigator.appName, n.navUserAgent = navigator.userAgent, n
+    },
+    sendCursorInAnimation: function(pos, time) {
+        if (time <= 0) return;
+        var elm = document.body;
+        var difference = pos - elm.scrollTop;
+        var perTick = difference / time * 10;
+
+        setTimeout(function() {
+            elm.scrollTop = elm.scrollTop + perTick;
+            if (elm.scrollTop == pos) return;
+            scrollTo(elm, pos, time - 10);
+        }, 10);
     }
 };
