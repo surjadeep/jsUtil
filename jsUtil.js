@@ -115,11 +115,79 @@ var jsUtil = {
         var elm = document.body;
         var difference = pos - elm.scrollTop;
         var perTick = difference / time * 10;
-
         setTimeout(function() {
             elm.scrollTop = elm.scrollTop + perTick;
             if (elm.scrollTop == pos) return;
             scrollTo(elm, pos, time - 10);
         }, 10);
+    },
+    showPageBlocker: function() {
+        "function" === typeof this.hidePageBlocker && this.hidePageBlocker()
+        var windowBlockerWrapper = document.createElement("div");
+        var windowBlocker = document.createElement("div");
+        var windowBlockerLoader = document.createElement("div");
+        Element.prototype.setAttributes = function(attrs) {
+            for (var idx in attrs) {
+                if ((idx === 'styles' || idx === 'style') && typeof attrs[idx] === 'object') {
+                    for (var prop in attrs[idx]) {
+                        this.style[prop] = attrs[idx][prop];
+                    }
+                } else if (idx === 'html') {
+                    this.innerHTML = attrs[idx];
+                } else {
+                    this.setAttribute(idx, attrs[idx]);
+                }
+            }
+        };
+        windowBlockerWrapper.setAttributes({
+            'id': 'windowBlockerWrapper'
+        });
+        windowBlocker.setAttributes({
+            'id': 'windowBlocker',
+            'styles': {
+                'position': 'fixed',
+                'top': '0',
+                'right': '0',
+                'bottom': '0',
+                'left': '0',
+                'zIndex': '10000'
+            }
+        });
+        windowBlockerLoader.setAttributes({
+            'id': 'windowBlockerLoader',
+            'styles': {
+                'backgroundColor': 'rgb(255, 255, 255)',
+                'color': 'rgb(0, 0, 0)',
+                'border': 'rgb(255, 0, 0) 1px solid',
+                'transition': '.4s ease-in-out',
+                'position': 'fixed',
+                'zIndex': '10001',
+                'left': 'calc(50% - 35px)',
+                'top': 'calc(50% - 35px)',
+                'textAlign': 'center',
+                'padding': '20px',
+                'borderRadius': '3px'
+
+            },
+            'html': 'loading'
+        });
+        windowBlocker.setAttribute("display", "block");
+        document.body.appendChild(windowBlockerWrapper);
+        document.body.appendChild(windowBlocker);
+        document.body.appendChild(windowBlockerLoader);
+    },
+    hidePageBlocker: function() {
+        var windowBlockerWrapper = document.getElementById('windowBlockerWrapper');
+        if (typeof(windowBlockerWrapper) != 'undefined' && windowBlockerWrapper != null) {
+            windowBlockerWrapper.remove()
+        }
+        var windowBlocker = document.getElementById('windowBlocker');
+        if (typeof(windowBlocker) != 'undefined' && windowBlocker != null) {
+            windowBlocker.remove()
+        }
+        var windowBlockerLoader = document.getElementById('windowBlockerLoader');
+        if (typeof(windowBlockerLoader) != 'undefined' && windowBlockerLoader != null) {
+            windowBlockerLoader.remove()
+        }
     }
 };
