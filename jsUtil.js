@@ -140,7 +140,10 @@ var jsUtil = function() {
             }
         };
         windowBlockerWrapper.setAttributes({
-            'id': 'windowBlockerWrapper'
+            'id': 'windowBlockerWrapper',
+            'styles': {
+                'display': 'none'
+            }
         });
         windowBlocker.setAttributes({
             'id': 'windowBlocker',
@@ -150,7 +153,8 @@ var jsUtil = function() {
                 'right': '0',
                 'bottom': '0',
                 'left': '0',
-                'zIndex': '10000'
+                'zIndex': '10000',
+                'display': 'none'
             }
         });
         windowBlockerLoader.setAttributes({
@@ -169,14 +173,17 @@ var jsUtil = function() {
                 'borderRadius': '3px',
                 'fontStyle': 'italic',
                 'fontSize': '13px',
-                'fontFamily': 'monospace'
+                'fontFamily': 'monospace',
+                'display': 'none'
             },
-            'html': 'loading'
+            'html': 'loading...'
         });
-        windowBlocker.setAttribute("display", "block");
         document.body.appendChild(windowBlockerWrapper);
         document.body.appendChild(windowBlocker);
         document.body.appendChild(windowBlockerLoader);
+        windowBlockerWrapper.style.display = "block";
+        windowBlocker.style.display = "block";
+        windowBlockerLoader.style.display = "block";
     };
     this.hidePageBlocker = function() {
         var windowBlockerWrapper = document.getElementById('windowBlockerWrapper');
